@@ -7,34 +7,51 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
         body {
             background-color: #ffffff; /* White background */
             color: #333;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .navbar {
             background-color: #800000 !important; /* Maroon */
         }
+
         .navbar-brand, 
         .nav-link {
             color: #ffffff !important;
             font-weight: 500;
         }
+
         .nav-link:hover {
             color: #ffcccc !important; /* Light maroon on hover */
         }
+
+        main {
+            flex: 1; 
+            padding-top: 50px; 
+        }
+
         footer {
             background-color: #800000; /* Maroon */
             color: white;
             text-align: center;
             padding: 15px 0;
-            margin-top: 50px;
             border-top: 3px solid #a94442;
         }
+
         h1 {
-            color: #800000; /* Maroon headings */
+            color: #800000;
             font-weight: bold;
         }
+
         p {
             font-size: 1.1rem;
         }
@@ -61,9 +78,9 @@
     </nav>
 
     <!-- Dynamic Content -->
-    <div class="container mt-5">
+    <main class="container">
         <?= $this->renderSection('content') ?>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
