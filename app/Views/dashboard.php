@@ -10,7 +10,7 @@
         Welcome, <?= esc(session('userEmail')) ?>!
     </div>
 
-    <p>This is a protected page only visible after login.</p>
+    <p>This is a dashboard page.</p>
 <?= $this->endSection() ?>
 
 

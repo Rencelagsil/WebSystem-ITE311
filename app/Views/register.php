@@ -34,6 +34,7 @@
                 </form>
             </div>
         </div>
+         <p class="text-center mt-3 text-muted small">Already have an account? <a href="<?= base_url('login') ?>">Login</a></p>
     </div>
 <?= $this->endSection() ?>
 

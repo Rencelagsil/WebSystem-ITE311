@@ -84,7 +84,7 @@ class Auth extends BaseController
         $userId = $userModel->insert([
             'name' => $name,
             'email' => $email,
-            'role' => 'student',
+            'role' => 'user',
             'password' => $passwordHash,
         ], true);
 

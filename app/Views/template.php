@@ -1,3 +1,7 @@
+<?php
+    // Get current route (like 'login', 'register', 'dashboard', etc.)
+    $currentRoute = service('router')->getMatchedRoute()[0] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,24 +62,26 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="<?= base_url('/') ?>">ITE311</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" 
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('about') ?>">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('contact') ?>">Contact</a></li>
-                </ul>
+    <!-- Navbar (hide on login, register, dashboard) -->
+    <?php if (!in_array($currentRoute, ['login', 'register', 'dashboard'])): ?>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="<?= base_url('/') ?>">ITE311</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('about') ?>">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('contact') ?>">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    <?php endif; ?>
 
     <!-- Dynamic Content -->
     <main class="container">

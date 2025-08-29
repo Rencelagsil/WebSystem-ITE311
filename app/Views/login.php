@@ -27,6 +27,10 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        <!-- Forgot password link -->
+                        <div class="mt-2 text-end">
+                            <a href="<?= base_url('forgot-password') ?>" class="small">Forgot Password?</a>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100" style="background-color:#800000; border-color:#800000;">Login</button>
                 </form>
@@ -37,5 +41,3 @@
     </div>
 <?php /* close container started in template via section */ ?>
 <?= $this->endSection() ?>
-
-
