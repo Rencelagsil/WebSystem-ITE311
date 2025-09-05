@@ -6,17 +6,17 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('home'); // Homepage
+        return view('pages/home'); // Homepage
     }
 
     public function about()
     {
-        return view('about'); // About page
+        return view('pages/about'); // About page
     }
 
     public function contact() // Contact page
     {
-        return view('contact');
+        return view('pages/contact');
     }
 
     public function dashboard()
@@ -26,6 +26,6 @@ class Home extends BaseController
             return redirect()->to(base_url('login'));
         }
 
-        return view('dashboard');
+        return view('dashboard/index');
     }
 }

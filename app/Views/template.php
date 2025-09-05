@@ -47,7 +47,7 @@
             background-color: #800000; /* Maroon */
             color: white;
             text-align: center;
-            padding: 15px 0;
+            padding: 10px 0;
             border-top: 3px solid #a94442;
         }
 
