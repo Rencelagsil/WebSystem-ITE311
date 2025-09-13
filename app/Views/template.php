@@ -77,6 +77,7 @@
                         <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= base_url('about') ?>">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= base_url('contact') ?>">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('login') ?>">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -89,9 +90,11 @@
     </main>
 
     <!-- Footer -->
+     <?php if (!in_array($currentRoute, ['login', 'register', 'dashboard'])): ?>
     <footer>
         <p>&copy; 2025 ITE311 - All Rights Reserved</p>
     </footer>
+    <?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
