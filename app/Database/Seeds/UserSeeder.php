@@ -10,25 +10,48 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Admin User',
-                'email' => 'admin@lms.com',
+                'name' => 'Jason',
+                'email' => 'jason@gmail.com',
                 'role' => 'admin',
                 'password' => password_hash('admin123', PASSWORD_DEFAULT),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'name' => 'John Student',
-                'email' => 'student@lms.com',
+                'name' => 'Rose',
+                'email' => 'rose@gmail.com',
+                'role' => 'teacher',
+                'password' => password_hash('rose123', PASSWORD_DEFAULT),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+                        [
+                'name' => 'Albert',
+                'email' => 'albert@gmail.com',
+                'role' => 'teacher',
+                'password' => password_hash('alber123', PASSWORD_DEFAULT),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name' => 'Justine',
+                'email' => 'justine@gmail.com',
                 'role' => 'student',
-                'password' => password_hash('student123', PASSWORD_DEFAULT),
+                'password' => password_hash('justine123', PASSWORD_DEFAULT),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'name' => 'Jane Instructor',
-                'email' => 'instructor@lms.com',
-                'role' => 'instructor',
-                'password' => password_hash('teacher123', PASSWORD_DEFAULT),
+                        [
+                'name' => 'Nabunturan',
+                'email' => 'nabunturan@gmail.com',
+                'role' => 'student',
+                'password' => password_hash('nabunturan123', PASSWORD_DEFAULT),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ];
-            $this->db->table('users')->insertBatch($data);
 
+        // Insert the data
+        $this->db->table('users')->insertBatch($data);
     }
 }
