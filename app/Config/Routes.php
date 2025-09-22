@@ -18,6 +18,7 @@ $routes->get('/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Auth::dashboard');
 
 $routes->get('admin/dashboard', 'AdminController::dashboard');
+$routes->get('teacher/dashboard', 'TeacherController::dashboard');
 
 
 

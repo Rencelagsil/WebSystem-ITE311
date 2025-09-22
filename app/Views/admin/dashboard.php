@@ -80,13 +80,13 @@
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-info btn-block">
-                            <i class="bi bi-gear me-2"></i>Settings
+                        <a href="#recentActivitySection" class="btn btn-info btn-block">
+                            <i class="bi bi-graph-up me-2"></i>Recent Activity
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-warning btn-block">
-                            <i class="bi bi-graph-up me-2"></i>Reports
+                        <a href="#" class="btn btn-info btn-block">
+                            <i class="bi bi-gear me-2"></i>Settings
                         </a>
                     </div>
                 </div>
@@ -95,8 +95,8 @@
     </div>
 </div>
 
-<!-- Recent Users Table -->
-<div class="row">
+<!-- Recent Activity -->
+<div class="row" id="recentActivitySection">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-header py-3">
@@ -108,35 +108,38 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Email</th>
                                 <th>Role</th>
+                                <th>Action</th>
+                                <th>Target</th>
                                 <th>Created</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($recentUsers)): ?>
-                                <?php foreach ($recentUsers as $user): ?>
-                                    <tr>
-                                        <td><?= esc($user['name']) ?></td>
-                                        <td><?= esc($user['email']) ?></td>
-                                        <td>
-                                            <span class="badge bg-<?= $user['role'] === 'admin' ? 'danger' : ($user['role'] === 'teacher' ? 'info' : 'warning') ?>">
-                                                <?= esc(ucfirst($user['role'])) ?>
-                                            </span>
-                                        </td>
-                                        <td><?= date('M d, Y', strtotime($user['created_at'])) ?></td>
-                                        <td>
-                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
+                            <?php
+                            // Example recent activity data 
+                            $recentActivities = [
+                                ['name'=>'Jane Smith','role'=>'Teacher','action'=>'Added','target'=>'New Course: "Math 101"','created_at'=>'2025-09-21 09:50'],
+                                ['name'=>'Mike Johnson','role'=>'Teacher','action'=>'Updated','target'=>'Course: "Science 201"','created_at'=>'2025-09-20 16:45'],
+                                ['name'=>'Alice Brown','role'=>'Student','action'=>'Submitted','target'=>'Assignment: "History HW1"','created_at'=>'2025-09-19 14:30'],
+                                ['name'=>'David Lee','role'=>'Student','action'=>'Completed','target'=>'Quiz: "Math 101 Quiz 1"','created_at'=>'2025-09-18 10:15'],
+                                ['name'=>'Sarah Green','role'=>'Teacher','action'=>'Graded','target'=>'Student Assignment: "Science Lab 2"','created_at'=>'2025-09-18 09:45'],
+                            ];
+                            ?>
+
+                            <?php foreach ($recentActivities as $activity): ?>
                                 <tr>
-                                    <td colspan="5" class="text-center">No users found</td>
+                                    <td><?= esc($activity['name']) ?></td>
+                                    <td>
+                                        <span class="badge bg-<?= $activity['role'] === 'Teacher' ? 'info' : 'warning' ?>">
+                                            <?= esc($activity['role']) ?>
+                                        </span>
+                                    </td>
+                                    <td><?= esc($activity['action']) ?></td>
+                                    <td><?= esc($activity['target']) ?></td>
+                                    <td><?= date('M d, Y H:i', strtotime($activity['created_at'])) ?></td>
                                 </tr>
-                            <?php endif; ?>
+                            <?php endforeach; ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -144,7 +147,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <style>
 /* Maroon and White Color Scheme */
