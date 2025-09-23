@@ -142,13 +142,17 @@ $userRole = $session->get('userRole'); // Role saved in session
         <nav class="nav flex-column">
             <a class="nav-link <?= ($currentRoute === 'admin/dashboard') ? 'active' : '' ?>" 
             href="<?= base_url('admin/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+
             <a class="nav-link <?= ($currentRoute === 'admin/users') ? 'active' : '' ?>" 
-            href="<?= base_url('admin/users') ?>"><i class="bi bi-people me-2"></i>User</a>
+            href="<?= base_url('admin/users') ?>"><i class="bi bi-people me-2"></i>Users</a>
+
             <a class="nav-link <?= ($currentRoute === 'admin/courses') ? 'active' : '' ?>" 
-            href="<?= base_url('admin/courses') ?>"><i class="bi bi-journal-bookmark me-2"></i>Course</a>
+            href="<?= base_url('admin/courses') ?>"><i class="bi bi-journal-bookmark me-2"></i>Courses</a>
+
             <a class="nav-link <?= ($currentRoute === 'admin/settings') ? 'active' : '' ?>" 
             href="<?= base_url('admin/settings') ?>"><i class="bi bi-gear me-2"></i>Settings</a>
             <hr class="text-white">
+
             <a class="nav-link" href="<?= base_url('logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
         </nav>
     </div>
@@ -162,14 +166,49 @@ $userRole = $session->get('userRole'); // Role saved in session
     <div class="sidebar">
         <nav class="nav flex-column">
             <a class="nav-link <?= ($currentRoute === 'teacher/dashboard') ? 'active' : '' ?>" 
-            href="<?= base_url('admin/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+            href="<?= base_url('teacher/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+
             <a class="nav-link <?= ($currentRoute === 'teacher/course') ? 'active' : '' ?>" 
-            href="<?= base_url('admin/users') ?>"><i class="bi bi-people me-2"></i>Add Course</a>
+            href="<?= base_url('teacher/course') ?>"><i class="bi bi-journal-bookmark me-2"></i>Add Courses</a>
+
             <a class="nav-link <?= ($currentRoute === 'teacher/assignment') ? 'active' : '' ?>" 
-            href="<?= base_url('admin/courses') ?>"><i class="bi bi-journal-bookmark me-2"></i>Add Assignment</a>
+            href="<?= base_url('teacher/assignment') ?>"><i class="bi bi-pencil-square me-2"></i>Add Assignments</a>
+            
+            <a class="nav-link <?= ($currentRoute === 'teacher/grades') ? 'active' : '' ?>" 
+            href="<?= base_url('teacher/grades') ?>"><i class="bi bi-mortarboard me-2"></i>Add Grades</a>
+
             <a class="nav-link <?= ($currentRoute === 'teacher/settings') ? 'active' : '' ?>" 
-            href="<?= base_url('admin/settings') ?>"><i class="bi bi-gear me-2"></i>Settings</a>
+            href="<?= base_url('teacher/settings') ?>"><i class="bi bi-gear me-2"></i>Settings</a>
             <hr class="text-white">
+
+            <a class="nav-link" href="<?= base_url('logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+        </nav>
+    </div>
+    <script>
+        document.body.classList.add("has-sidebar");
+    </script>
+    <?php endif; ?>
+
+    <!-- Sidebar for Student -->
+        <?php if ($session->get('isLoggedIn') && $userRole === 'student'): ?>
+    <div class="sidebar">
+        <nav class="nav flex-column">
+            <a class="nav-link <?= ($currentRoute === 'student/dashboard') ? 'active' : '' ?>" 
+            href="<?= base_url('student/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+
+            <a class="nav-link <?= ($currentRoute === 'student/course') ? 'active' : '' ?>" 
+                href="<?= base_url('student/course') ?>"><i class="bi bi-journal-bookmark me-2"></i>Courses</a>
+                
+                <a class="nav-link <?= ($currentRoute === 'student/assignment') ? 'active' : '' ?>" 
+                href="<?= base_url('student/assignment') ?>"><i class="bi bi-pencil-square me-2"></i>Assignments</a>
+
+                <a class="nav-link <?= ($currentRoute === 'student/grades') ? 'active' : '' ?>" 
+                href="<?= base_url('student/grades') ?>"><i class="bi bi-mortarboard me-2"></i>Grades</a>
+
+                <a class="nav-link <?= ($currentRoute === 'student/settings') ? 'active' : '' ?>"          
+            href="<?= base_url('student/settings') ?>"><i class="bi bi-gear me-2"></i>Settings</a>
+            <hr class="text-white">
+
             <a class="nav-link" href="<?= base_url('logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
         </nav>
     </div>
