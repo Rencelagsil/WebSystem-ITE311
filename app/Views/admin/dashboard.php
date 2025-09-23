@@ -6,7 +6,7 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h3 mb-0 text-dark">
+                <h1 class="h3 mb-0 text-maroon">
                     <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
                 </h1>
             </div>
@@ -70,22 +70,22 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-primary btn-block">
+                        <a href="#" class="btn btn-outline-maroon btn-block">
                             <i class="bi bi-person-plus me-2"></i>Manage User
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-success btn-block">
+                        <a href="#" class="btn btn-outline-maroon btn-block">
                             <i class="bi bi-book me-2"></i>Manage Courses
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#recentActivitySection" class="btn btn-info btn-block">
+                        <a href="#recentActivitySection" class="btn btn-outline-maroon btn-block">
                             <i class="bi bi-graph-up me-2"></i>Recent Activity
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-info btn-block">
+                        <a href="#" class="btn btn-outline-maroon btn-block">
                             <i class="bi bi-gear me-2"></i>Settings
                         </a>
                     </div>
@@ -148,22 +148,22 @@
     </div>
 </div>
 
-
 <style>
 /* Maroon and White Color Scheme */
 .border-left-primary,
 .border-left-success {
     border-left: 0.25rem solid #800000 !important;
 }
+
 .text-xs {
     font-size: 0.7rem;
 }
-.text-gray-300 {
-    color: #800000 !important;
-}
+
+.text-gray-300,
 .text-gray-800 {
     color: #800000 !important;
 }
+
 .card {
     border: 1px solid #800000;
     box-shadow: 0 2px 4px rgba(128, 0, 0, 0.1);
@@ -173,12 +173,15 @@
     color: white;
     border-bottom: 1px solid #800000;
 }
+
+/* Solid Buttons */
 .btn-primary,
 .btn-success,
 .btn-info,
 .btn-warning {
     background-color: #800000;
     border-color: #800000;
+    color: #fff !important;
 }
 .btn-primary:hover,
 .btn-success:hover,
@@ -187,10 +190,18 @@
     background-color: #660000;
     border-color: #660000;   
 }
-.btn, 
-.btn i {
+
+/* Outline Buttons */
+.btn-outline-maroon {
+    color: #800000 !important;
+    border-color: #800000;
+}
+.btn-outline-maroon:hover {
+    background-color: #800000;
     color: #fff !important;
 }
+
+/* Badges */
 .badge.bg-danger,
 .badge.bg-info,
 .badge.bg-warning {

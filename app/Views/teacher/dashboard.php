@@ -6,7 +6,7 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h3 mb-0 text-dark">
+                <h1 class="h3 mb-0 text-maroon">
                     <i class="bi bi-person-badge me-2"></i>Teacher Dashboard
                 </h1>
             </div>
@@ -89,22 +89,22 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-primary btn-block">
+                            <a href="#" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-plus-circle me-2"></i>Create Course
                             </a>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-success btn-block">
+                            <a href="#" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-file-earmark-plus me-2"></i>Add Assignment
                             </a>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-info btn-block">
+                            <a href="#" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-chat-dots me-2"></i>View Messages
                             </a>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-warning btn-block">
+                            <a href="#" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-graph-up me-2"></i>View Analytics
                             </a>
                         </div>
@@ -183,81 +183,60 @@
 </div>
 
 <style>
-/* Maroon and White Color Scheme */
-.border-left-primary {
-    border-left: 0.25rem solid #800000 !important;
+.text-maroon {
+    color: #800000 !important;
 }
-.border-left-success {
-    border-left: 0.25rem solid #800000 !important;
+.bg-maroon {
+    background-color: #800000 !important;
+    color: #fff !important;
 }
-.border-left-info {
-    border-left: 0.25rem solid #800000 !important;
-}
+
+/* Border Left Utilities */
+.border-left-primary,
+.border-left-success,
+.border-left-info,
 .border-left-warning {
     border-left: 0.25rem solid #800000 !important;
 }
+
+/* Text Utilities */
 .text-xs {
     font-size: 0.7rem;
 }
-.text-gray-300 {
-    color: #800000 !important;
-}
+.text-gray-300,
 .text-gray-800 {
     color: #800000 !important;
 }
 
-/* Custom Maroon and White Styling */
+/* Card Styling */
 .card {
     border: 1px solid #800000;
     box-shadow: 0 2px 4px rgba(128, 0, 0, 0.1);
 }
 .card-header {
     background-color: #800000;
-    color: white;
+    color: #fff;
     border-bottom: 1px solid #800000;
 }
-.btn-primary {
-    background-color: #800000;
-    border-color: #800000;
-}
-.btn-primary:hover {
-    background-color: #660000;
-    border-color: #660000;
-}
-.btn-success {
-    background-color: #800000;
-    border-color: #800000;
-}
-.btn-success:hover {
-    background-color: #660000;
-    border-color: #660000;
-}
-.btn-info {
-    background-color: #800000;
-    border-color: #800000;
-}
-.btn-info:hover {
-    background-color: #660000;
-    border-color: #660000;
-}
+
+/* Button Variants */
+.btn-primary,
+.btn-success,
+.btn-info,
 .btn-warning {
     background-color: #800000;
     border-color: #800000;
+    color: #fff !important;
 }
+.btn-primary:hover,
+.btn-success:hover,
+.btn-info:hover,
 .btn-warning:hover {
     background-color: #660000;
     border-color: #660000;
 }
-.btn, 
-.btn i {
-    color: #fff !important;
-}
-.badge.bg-success {
-    background-color: #800000 !important;
-}
-.badge.bg-secondary {
-    background-color: #800000 !important;
-}
+
+/* Button Outlined */
 .btn-outline-maroon {
     color: #800000 !important;
     border-color: #800000;
@@ -265,6 +244,12 @@
 .btn-outline-maroon:hover {
     background-color: #800000;
     color: #fff !important;
+}
+
+/* Badge Styling */
+.badge.bg-success,
+.badge.bg-secondary {
+    background-color: #800000 !important;
 }
 </style>
 <?= $this->endSection() ?>

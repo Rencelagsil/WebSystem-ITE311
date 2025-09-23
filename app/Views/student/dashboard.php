@@ -6,7 +6,7 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h3 mb-0 text-dark">
+                <h1 class="h3 mb-0 text-maroon">
                     <i class="bi bi-mortarboard me-2"></i>Student Dashboard
                 </h1>
             </div>
@@ -107,23 +107,23 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-primary btn-block">
+                            <a href="#courses" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-search me-2"></i>Browse Courses
                             </a>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-success btn-block">
+                            <a href="#" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-file-earmark-arrow-up me-2"></i>Submit Assignment
                             </a>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-info btn-block">
+                            <a href="#" class="btn btn-outline-maroon btn-block">
                                 <i class="bi bi-chat-dots me-2"></i>Ask Question
                             </a>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <a href="#" class="btn btn-warning btn-block">
-                                <i class="bi bi-calendar me-2"></i>View Schedule
+                            <a href="#recent-grades" class="btn btn-outline-maroon btn-block">
+                                <i class="bi bi-calendar me-2"></i>View Grades
                             </a>
                         </div>
                     </div>
@@ -134,16 +134,16 @@
 
     <div class="row">
         <!-- My Courses -->
-        <div class="col-lg-6">
+        <div class="col-lg-6" id= "courses">
             <div class="card shadow">
-                <div class="card-header py-3">
+                <div class="card-header py-3"> 
                     <h6 class="m-0 font-weight-bold text-white">My Courses</h6>
                 </div>
                 <div class="card-body">
                     <?php foreach ($enrolledCourses as $course): ?>
                         <div class="d-flex align-items-center mb-3 p-3 border rounded">
                             <div class="flex-shrink-0">
-                                <i class="bi bi-book text-white fa-2x"></i>
+                                <i class="bi bi-book text-maroon fa-2x"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-1"><?= esc($course['name']) ?></h6>
@@ -155,7 +155,7 @@
                                 <small class="text-muted">Progress: <?= $course['progress'] ?>%</small>
                             </div>
                             <div class="flex-shrink-0">
-                                <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                <a href="#" class="btn btn-sm btn-outline-maroon">View</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -173,7 +173,7 @@
                     <?php foreach ($upcomingDeadlines as $deadline): ?>
                         <div class="d-flex align-items-center mb-3 p-3 border rounded">
                             <div class="flex-shrink-0">
-                                <i class="bi bi-clock text-white fa-2x"></i>
+                                <i class="bi bi-clock text-maroon fa-2x"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-1"><?= esc($deadline['assignment']) ?></h6>
@@ -193,7 +193,7 @@
     </div>
 
     <!-- Recent Grades -->
-    <div class="row mt-4">
+    <div class="row mt-4" id="recent-grades">
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header py-3">
@@ -237,85 +237,82 @@
 </div>
 
 <style>
-/* Maroon and White Color Scheme */
-.border-left-primary {
-    border-left: 0.25rem solid #800000 !important;
+/* Base Colors */
+:root {
+    --maroon: #800000;
+    --maroon-dark: #660000;
 }
-.border-left-success {
-    border-left: 0.25rem solid #800000 !important;
+
+/* Text Colors */
+.text-maroon,
+.text-gray-300,
+.text-gray-800 {
+    color: var(--maroon) !important;
 }
-.border-left-info {
-    border-left: 0.25rem solid #800000 !important;
-}
-.border-left-warning {
-    border-left: 0.25rem solid #800000 !important;
-}
+
 .text-xs {
     font-size: 0.7rem;
 }
-.text-gray-300 {
-    color: #800000 !important;
-}
-.text-gray-800 {
-    color: #800000 !important;
-}
 
-/* Custom Maroon and White Styling */
+/* Card Styles */
 .card {
-    border: 1px solid #800000;
+    border: 1px solid var(--maroon);
     box-shadow: 0 2px 4px rgba(128, 0, 0, 0.1);
 }
+
 .card-header {
-    background-color: #800000;
+    background-color: var(--maroon);
     color: white;
-    border-bottom: 1px solid #800000;
+    border-bottom: 1px solid var(--maroon);
 }
-.btn-primary {
-    background-color: #800000;
-    border-color: #800000;
+
+/* Border Styles */
+.border-left-primary,
+.border-left-success,
+.border-left-info,
+.border-left-warning {
+    border-left: 0.25rem solid var(--maroon) !important;
 }
-.btn-primary:hover {
-    background-color: #660000;
-    border-color: #660000;
-}
-.btn-success {
-    background-color: #800000;
-    border-color: #800000;
-}
-.btn-success:hover {
-    background-color: #660000;
-    border-color: #660000;
-}
-.btn-info {
-    background-color: #800000;
-    border-color: #800000;
-}
-.btn-info:hover {
-    background-color: #660000;
-    border-color: #660000;
-}
+
+/* Button Styles */
+.btn-primary,
+.btn-success,
+.btn-info,
 .btn-warning {
-    background-color: #800000;
-    border-color: #800000;
+    background-color: var(--maroon);
+    border-color: var(--maroon);
 }
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-info:hover,
 .btn-warning:hover {
-    background-color: #660000;
-    border-color: #660000;
+    background-color: var(--maroon-dark);
+    border-color: var(--maroon-dark);
 }
-.badge.bg-success {
-    background-color: #800000 !important;
+
+.btn-outline-maroon {
+    color: var(--maroon);
+    border-color: var(--maroon);
 }
-.badge.bg-info {
-    background-color: #800000 !important;
+
+.btn-outline-maroon:hover {
+    color: #fff;
+    background-color: var(--maroon);
+    border-color: var(--maroon);
 }
-.badge.bg-warning {
-    background-color: #800000 !important;
-}
+
+/* Badge Styles */
+.badge.bg-success,
+.badge.bg-info,
+.badge.bg-warning,
 .badge.bg-danger {
-    background-color: #800000 !important;
+    background-color: var(--maroon) !important;
 }
+
+/* Progress Bar */
 .progress-bar {
-    background-color: #800000;
+    background-color: var(--maroon);
 }
 </style>
 <?= $this->endSection() ?>
