@@ -5,13 +5,12 @@ namespace App\Controllers;
 class Auth extends BaseController
 {
     
-     // Handles registration 
-    
+// Handles registration 
     public function register()
     {
         $session = session();
         if ($session->get('isLoggedIn')) {
-            return redirect()->to(base_url('dashboard'));
+            return $this->redirectBasedOnRole($session->get('userRole'));
         }
 
         // Process form submission (POST)
@@ -44,7 +43,7 @@ class Auth extends BaseController
             $userId = $userModel->insert([
                 'name' => $name,
                 'email' => $email,
-                'role' => 'user',
+                'role' => 'role',
                 'password' => $passwordHash,
             ], true);
 
@@ -58,38 +57,59 @@ class Auth extends BaseController
         }
 
         // Display form (GET)
-        return view('signin/register');
+        return view('auth/register');
     }
 
-    // Login 
+// Login
     public function login()
     {
-        $session = session();
+        $session = session(); 
+
         if ($session->get('isLoggedIn')) {
-            return redirect()->to(base_url('dashboard'));
-        }
-
-        // Process form submission (POST)
-        if ($this->request->getMethod() === 'POST') {
-            $email = trim((string) $this->request->getPost('email'));
-            $password = (string) $this->request->getPost('password');
-
-            $userModel = new \App\Models\UserModel();
-            $user = $userModel->where('email', $email)->first();
-            
-            if ($user && password_verify($password, $user['password'])) {
-                $session->set([
-                    'isLoggedIn' => true,
-                    'userEmail' => $email,
-                ]);
-                return redirect()->to(base_url('dashboard'));
+            $role = $session->get('userRole');
+            switch ($role) {
+                case 'admin':
+                    return redirect()->to(base_url('admin/dashboard'));
+                case 'teacher':
+                    return redirect()->to(base_url('teacher/dashboard'));
+                case 'student':
+                    return redirect()->to(base_url('student/dashboard'));
+                default:
+                    return redirect()->to(base_url('dashboard')); 
             }
-
-            return redirect()->back()->with('login_error', 'Invalid credentials');
         }
-
-        return view('signin/login');
-    }
+         // Process form submission (POST)
+           if ($this->request->getMethod() === 'POST') {
+               $email = trim((string) $this->request->getPost('email'));
+               $password = (string) $this->request->getPost('password');
+       
+               $userModel = new \App\Models\UserModel();
+               $user = $userModel->where('email', $email)->first();
+               
+               if ($user && password_verify($password, $user['password'])) {
+                   // Store the user's email and role in the session
+                   $session->set([
+                       'isLoggedIn' => true,
+                       'userEmail' => $email,
+                       'userRole' => $user['role'], 
+                   ]);
+                   
+                   // Redirect based on user role
+                   switch ($user['role']) {
+                       case 'admin':
+                           return redirect()->to(base_url('admin/dashboard'));
+                       case 'teacher':
+                           return redirect()->to(base_url('teacher/dashboard'));
+                       case 'student':
+                           return redirect()->to(base_url('student/dashboard'));
+                   }
+               }
+       
+               return redirect()->back()->with('login_error', 'Invalid credentials');
+           }
+       
+           return view('auth/login');
+       }
 
  //Destroy user session
     public function logout()
