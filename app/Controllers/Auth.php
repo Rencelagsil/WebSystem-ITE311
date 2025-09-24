@@ -63,20 +63,10 @@ class Auth extends BaseController
 // Login
     public function login()
     {
-        $session = session(); 
+        $session = session();
 
         if ($session->get('isLoggedIn')) {
-            $role = $session->get('userRole');
-            switch ($role) {
-                case 'admin':
-                    return redirect()->to(base_url('admin/dashboard'));
-                case 'teacher':
-                    return redirect()->to(base_url('teacher/dashboard'));
-                case 'student':
-                    return redirect()->to(base_url('student/dashboard'));
-                default:
-                    return redirect()->to(base_url('dashboard')); 
-            }
+            return redirect()->to(base_url('dashboard'));
         }
          // Process form submission (POST)
            if ($this->request->getMethod() === 'POST') {
@@ -91,18 +81,11 @@ class Auth extends BaseController
                    $session->set([
                        'isLoggedIn' => true,
                        'userEmail' => $email,
-                       'userRole' => $user['role'], 
+                       'userRole' => $user['role'],
                    ]);
-                   
-                   // Redirect based on user role
-                   switch ($user['role']) {
-                       case 'admin':
-                           return redirect()->to(base_url('admin/dashboard'));
-                       case 'teacher':
-                           return redirect()->to(base_url('teacher/dashboard'));
-                       case 'student':
-                           return redirect()->to(base_url('student/dashboard'));
-                   }
+
+                   // Redirect to unified dashboard
+                   return redirect()->to(base_url('dashboard'));
                }
        
                return redirect()->back()->with('login_error', 'Invalid credentials');
@@ -111,7 +94,7 @@ class Auth extends BaseController
            return view('auth/login');
        }
 
- //Destroy user session
+ //Logout
     public function logout()
     {
         $session = session();
@@ -119,6 +102,7 @@ class Auth extends BaseController
         return redirect()->to(base_url('login'));
     }
 
+  // Handles the dashboard each role admin, teacher, student
         public function dashboard()
     {
         $session = session();
@@ -126,6 +110,55 @@ class Auth extends BaseController
             return redirect()->to(base_url('login'));
         }
 
-        return view('dashboard/index');
+        $role = $session->get('userRole');
+        $data = [
+            'userRole' => $role,
+            'userEmail' => $session->get('userEmail')
+        ];
+
+        if ($role === 'admin') {
+            $userModel = new \App\Models\UserModel();
+            $courseModel = new \App\Models\CourseModel();
+
+            $data['totalUsers'] = $userModel->countAllResults();
+            $data['courseCount'] = $courseModel->countAllResults();
+            // Recent activity placeholder
+            $data['recentActivities'] = [
+                ['name'=>'Jane Smith','role'=>'Teacher','action'=>'Added','target'=>'New Course: "Math 101"','created_at'=>'2025-09-21 09:50'],
+                ['name'=>'Mike Johnson','role'=>'Teacher','action'=>'Updated','target'=>'Course: "Science 201"','created_at'=>'2025-09-20 16:45'],
+                ['name'=>'Alice Brown','role'=>'Student','action'=>'Submitted','target'=>'Assignment: "History HW1"','created_at'=>'2025-09-19 14:30'],
+                ['name'=>'David Lee','role'=>'Student','action'=>'Completed','target'=>'Quiz: "Math 101 Quiz 1"','created_at'=>'2025-09-18 10:15'],
+                ['name'=>'Sarah Green','role'=>'Teacher','action'=>'Graded','target'=>'Student Assignment: "Science Lab 2"','created_at'=>'2025-09-18 09:45'],
+            ];
+        } elseif ($role === 'teacher') {
+            $data['teacherCourses'] = [
+                ['id' => 1, 'name' => 'Web Development', 'students' => 25, 'status' => 'active'],
+                ['id' => 2, 'name' => 'Database Management', 'students' => 18, 'status' => 'active'],
+                ['id' => 3, 'name' => 'Software Engineering', 'students' => 22, 'status' => 'active']
+            ];
+            $data['notifications'] = [
+                ['id' => 1, 'message' => 'New assignment submitted by John Doe', 'time' => '2 hours ago', 'type' => 'assignment'],
+                ['id' => 2, 'message' => 'Student Sarah Wilson needs help with project', 'time' => '4 hours ago', 'type' => 'help'],
+                ['id' => 3, 'message' => 'Course "Web Development" has 3 new enrollments', 'time' => '1 day ago', 'type' => 'enrollment']
+            ];
+        } elseif ($role === 'student') {
+            $data['enrolledCourses'] = [
+                ['id' => 1, 'name' => 'Web Development', 'instructor' => 'Dr. Smith', 'progress' => 75],
+                ['id' => 2, 'name' => 'Database Management', 'instructor' => 'Prof. Johnson', 'progress' => 60],
+                ['id' => 3, 'name' => 'Software Engineering', 'instructor' => 'Dr. Brown', 'progress' => 45]
+            ];
+            $data['upcomingDeadlines'] = [
+                ['course' => 'Web Development', 'assignment' => 'Final Project', 'due_date' => '2025-01-25', 'status' => 'pending'],
+                ['course' => 'Database Management', 'assignment' => 'SQL Quiz', 'due_date' => '2025-01-28', 'status' => 'pending'],
+                ['course' => 'Software Engineering', 'assignment' => 'Design Document', 'due_date' => '2025-02-01', 'status' => 'pending']
+            ];
+            $data['recentGrades'] = [
+                ['course' => 'Web Development', 'assignment' => 'HTML/CSS Project', 'grade' => 95, 'date' => '2025-01-20'],
+                ['course' => 'Database Management', 'assignment' => 'ERD Design', 'grade' => 88, 'date' => '2025-01-18'],
+                ['course' => 'Software Engineering', 'assignment' => 'Requirements Analysis', 'grade' => 92, 'date' => '2025-01-15']
+            ];
+        }
+
+        return view('auth/dashboard', $data);
     }
 }
