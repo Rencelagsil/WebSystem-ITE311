@@ -8,12 +8,14 @@ Options -Indexes
 	# Turning on the rewrite engine is necessary for the following rules and features.
 	# FollowSymLinks must be enabled for this to work.
 	<IfModule mod_rewrite.c>
-		Options +FollowSymlinks
+		Options +FollowSymLinks
 		RewriteEngine On
 
+		# Deny access to app directory
+		RewriteRule ^app - [F,L]
+
 		# Block directory traversal attempts
-		RewriteCond %{REQUEST_URI} \.\.
-		RewriteRule .* - [F,L]
+		RewriteRule \.\. - [F,L]
 
 		# If you installed CodeIgniter in a subfolder, you will need to
 		# change the following line to match the subfolder you need.
