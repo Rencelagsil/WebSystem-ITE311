@@ -82,6 +82,7 @@ class Auth extends BaseController
                        'isLoggedIn' => true,
                        'userEmail' => $email,
                        'userRole' => $user['role'],
+                       'user_id' => $user['id'],
                    ]);
 
                    // Redirect to unified dashboard
@@ -131,22 +132,53 @@ class Auth extends BaseController
                 ['name'=>'Sarah Green','role'=>'Teacher','action'=>'Graded','target'=>'Student Assignment: "Science Lab 2"','created_at'=>'2025-09-18 09:45'],
             ];
         } elseif ($role === 'teacher') {
-            $data['teacherCourses'] = [
-                ['id' => 1, 'name' => 'Web Development', 'students' => 25, 'status' => 'active'],
-                ['id' => 2, 'name' => 'Database Management', 'students' => 18, 'status' => 'active'],
-                ['id' => 3, 'name' => 'Software Engineering', 'students' => 22, 'status' => 'active']
-            ];
+            $courseModel = new \App\Models\CourseModel();
+            $enrollmentModel = new \App\Models\EnrollmentModel();
+            $user_id = $session->get('user_id');
+
+            // Get courses taught by this teacher
+            $courses = $courseModel->where('instructor_id', $user_id)->findAll();
+
+            // Add student count and status to each course
+            $teacherCourses = [];
+            foreach ($courses as $course) {
+                $studentCount = $enrollmentModel->where('course_id', $course['id'])->countAllResults();
+                $teacherCourses[] = [
+                    'id' => $course['id'],
+                    'title' => $course['title'],
+                    'students' => $studentCount,
+                    'status' => 'active' // Assuming all courses are active for now
+                ];
+            }
+
+            $data['teacherCourses'] = $teacherCourses;
             $data['notifications'] = [
                 ['id' => 1, 'message' => 'New assignment submitted by John Doe', 'time' => '2 hours ago', 'type' => 'assignment'],
                 ['id' => 2, 'message' => 'Student Sarah Wilson needs help with project', 'time' => '4 hours ago', 'type' => 'help'],
                 ['id' => 3, 'message' => 'Course "Web Development" has 3 new enrollments', 'time' => '1 day ago', 'type' => 'enrollment']
             ];
         } elseif ($role === 'student') {
-            $data['enrolledCourses'] = [
-                ['id' => 1, 'name' => 'Web Development', 'instructor' => 'Dr. Smith', 'progress' => 75],
-                ['id' => 2, 'name' => 'Database Management', 'instructor' => 'Prof. Johnson', 'progress' => 60],
-                ['id' => 3, 'name' => 'Software Engineering', 'instructor' => 'Dr. Brown', 'progress' => 45]
-            ];
+            $enrollmentModel = new \App\Models\EnrollmentModel();
+            $courseModel = new \App\Models\CourseModel();
+            $user_id = $session->get('user_id');
+
+            // Get enrolled courses
+            $enrolledCourses = $enrollmentModel->getUserEnrollments($user_id);
+            $data['enrolledCourses'] = $enrolledCourses;
+
+            // Get all courses
+            $allCourses = $courseModel->findAll();
+
+            // Get enrolled course IDs
+            $enrolledCourseIds = array_column($enrolledCourses, 'course_id');
+
+            // Get available courses (not enrolled)
+            $availableCourses = array_filter($allCourses, function($course) use ($enrolledCourseIds) {
+                return !in_array($course['id'], $enrolledCourseIds);
+            });
+            $data['availableCourses'] = array_values($availableCourses);
+
+            // Dummy data for other sections (can be updated later)
             $data['upcomingDeadlines'] = [
                 ['course' => 'Web Development', 'assignment' => 'Final Project', 'due_date' => '2025-01-25', 'status' => 'pending'],
                 ['course' => 'Database Management', 'assignment' => 'SQL Quiz', 'due_date' => '2025-01-28', 'status' => 'pending'],

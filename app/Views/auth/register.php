@@ -14,6 +14,7 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <form action="<?= base_url('register') ?>" method="post">
+                    <?= csrf_field() ?>
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name" required value="<?= esc(old('name')) ?>">
@@ -37,6 +38,3 @@
          <p class="text-center mt-3 text-muted small">Already have an account? <a href="<?= base_url('login') ?>" style="color: #800000; font-weight: 500;">Login</a></p>
     </div>
 <?= $this->endSection() ?>
-
-
-
