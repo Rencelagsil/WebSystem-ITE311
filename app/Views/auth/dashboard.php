@@ -567,9 +567,17 @@ $(document).ready(function() {
         // Disable button and change text
         button.prop('disabled', true).text('Enrolling...');
 
-        $.post('<?= base_url('course/enroll') ?>', {
-            course_id: courseId
-        }, function(response) {
+        $.ajax({
+            url: '<?= base_url('course/enroll') ?>',
+            type: 'POST',
+            data: {
+                course_id: courseId
+            },
+            headers: {
+                'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+            },
+            dataType: 'json',
+            success: function(response) {
                 if (response.success) {
                     // Show success message
                     showAlert('success', response.message);
@@ -602,25 +610,24 @@ $(document).ready(function() {
                     $('#available-count').text(availableCount);
 
                 } else {
-                    // Show error message
-                    showAlert('danger', response.message);
                     // Re-enable button
                     button.prop('disabled', false).text(originalText);
                 }
             },
-            error: function() {
-                showAlert('danger', 'An error occurred. Please try again.');
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                console.error('Response:', xhr.responseText);
                 button.prop('disabled', false).text(originalText);
             }
         });
     });
 
     function showAlert(type, message) {
-        var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+        var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x" style="z-index: 1050;" role="alert">' +
             message +
             '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
             '</div>';
-        $('.container-fluid').prepend(alertHtml);
+        $('body').append(alertHtml);
         // Auto dismiss after 5 seconds
         setTimeout(function() {
             $('.alert').alert('close');
