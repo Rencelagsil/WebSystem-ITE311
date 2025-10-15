@@ -43,7 +43,7 @@ class Auth extends BaseController
             $userId = $userModel->insert([
                 'name' => $name,
                 'email' => $email,
-                'role' => 'role',
+                'role' => 'student',
                 'password' => $passwordHash,
             ], true);
 
@@ -123,6 +123,11 @@ class Auth extends BaseController
 
             $data['totalUsers'] = $userModel->countAllResults();
             $data['courseCount'] = $courseModel->countAllResults();
+
+            // Get all courses for the course table
+            $courses = $courseModel->findAll();
+            $data['courses'] = $courses;
+
             // Recent activity placeholder
             $data['recentActivities'] = [
                 ['name'=>'Jane Smith','role'=>'Teacher','action'=>'Added','target'=>'New Course: "Math 101"','created_at'=>'2025-09-21 09:50'],

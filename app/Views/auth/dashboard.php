@@ -81,7 +81,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
+                        <a href="#course" class="btn btn-outline-maroon btn-block">
                             <i class="bi bi-book me-2"></i>Manage Courses
                         </a>
                     </div>
@@ -101,8 +101,49 @@
     </div>
 </div>
 
+<!-- Course Table -->
+<div class="row mt-4" id="course">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-white">Course Management</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($courses)): ?>
+                                <?php foreach ($courses as $course): ?>
+                                    <tr>
+                                        <td><?= esc($course['title']) ?></td>
+                                        <td><?= esc(substr($course['description'], 0, 100)) ?><?= strlen($course['description']) > 100 ? '...' : '' ?></td>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary">View</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">No courses found</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Recent Activity -->
-<div class="row" id="recentActivitySection">
+<div class="row mt-4" id="recentActivitySection">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-header py-3">
