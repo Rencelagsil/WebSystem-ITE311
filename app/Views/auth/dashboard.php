@@ -125,7 +125,7 @@
                                         <td><?= esc($course['title']) ?></td>
                                         <td><?= esc(substr($course['description'], 0, 100)) ?><?= strlen($course['description']) > 100 ? '...' : '' ?></td>
                                         <td>
-                                            <a href="<?= base_url('admin/course/' . $course['id'] . '/upload') ?>" class="btn btn-sm btn-success">Upload Materials</a>
+                                            <a href="#" class="btn btn-sm btn-primary">View</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -269,8 +269,8 @@
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-graph-up me-2"></i>View Analytics
+                        <a href="#notifications" class="btn btn-outline-maroon btn-block">
+                            <i class="bi bi-bell me-2"></i>Notifications
                         </a>
                     </div>
                 </div>
@@ -279,9 +279,9 @@
     </div>
 </div>
 
-<div class="row">
-    <!-- My Courses -->
-    <div class="col-lg-8">
+<!-- My Courses -->
+<div class="row" id ="courses">
+    <div class="col-12">
         <div class="card shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-white">My Courses</h6>
@@ -308,8 +308,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">View</a>
-                                        <a href="#" class="btn btn-sm btn-info">Edit</a>
+                                        <a href="<?= base_url('admin/course/' . $course['id'] . '/upload') ?>" class="btn btn-sm btn-primary">Upload Materials</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -319,9 +318,11 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Notifications -->
-    <div class="col-lg-4">
+<!-- Recent Notifications -->
+<div class="row mt-4" id="notifications">
+    <div class="col-12">
         <div class="card shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-white">Recent Notifications</h6>
