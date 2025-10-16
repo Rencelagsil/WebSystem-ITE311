@@ -77,9 +77,14 @@ class Materials extends BaseController
             }
         }
 
+        // Get existing materials for this course
+        $materialModel = new MaterialModel();
+        $existingMaterials = $materialModel->getMaterialsByCourse($course_id);
+
         $data = [
             'course' => $course,
-            'userRole' => $userRole
+            'userRole' => $userRole,
+            'existingMaterials' => $existingMaterials
         ];
 
         return view('materials/upload', $data);
@@ -110,9 +115,9 @@ class Materials extends BaseController
         }
 
         if ($materialModel->deleteMaterial($material_id)) {
-            return redirect()->to(base_url('dashboard'))->with('delete_success', 'Material deleted successfully');
+            return redirect()->to(base_url('admin/course/' . $material['course_id'] . '/upload'))->with('delete_success', 'Material deleted successfully');
         } else {
-            return redirect()->to(base_url('dashboard'))->with('delete_error', 'Failed to delete material');
+            return redirect()->to(base_url('admin/course/' . $material['course_id'] . '/upload'))->with('delete_error', 'Failed to delete material');
         }
     }
 

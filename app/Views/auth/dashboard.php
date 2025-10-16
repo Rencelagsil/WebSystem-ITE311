@@ -308,7 +308,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="<?= base_url('admin/course/' . $course['id'] . '/upload') ?>" class="btn btn-sm btn-primary">Upload Materials</a>
+                                        <a href="<?= base_url('admin/course/' . $course['id'] . '/upload') ?>" class="btn btn-sm btn-primary">View</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
