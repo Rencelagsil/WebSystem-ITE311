@@ -128,13 +128,9 @@ class Auth extends BaseController
             $courses = $courseModel->findAll();
             $data['courses'] = $courses;
 
-            // Recent activity placeholder
+            // Recent activity
             $data['recentActivities'] = [
                 ['name'=>'Jane Smith','role'=>'Teacher','action'=>'Added','target'=>'New Course: "Math 101"','created_at'=>'2025-09-21 09:50'],
-                ['name'=>'Mike Johnson','role'=>'Teacher','action'=>'Updated','target'=>'Course: "Science 201"','created_at'=>'2025-09-20 16:45'],
-                ['name'=>'Alice Brown','role'=>'Student','action'=>'Submitted','target'=>'Assignment: "History HW1"','created_at'=>'2025-09-19 14:30'],
-                ['name'=>'David Lee','role'=>'Student','action'=>'Completed','target'=>'Quiz: "Math 101 Quiz 1"','created_at'=>'2025-09-18 10:15'],
-                ['name'=>'Sarah Green','role'=>'Teacher','action'=>'Graded','target'=>'Student Assignment: "Science Lab 2"','created_at'=>'2025-09-18 09:45'],
             ];
         } elseif ($role === 'teacher') {
             $courseModel = new \App\Models\CourseModel();
@@ -158,9 +154,7 @@ class Auth extends BaseController
 
             $data['teacherCourses'] = $teacherCourses;
             $data['notifications'] = [
-                ['id' => 1, 'message' => 'New assignment submitted by John Doe', 'time' => '2 hours ago', 'type' => 'assignment'],
-                ['id' => 2, 'message' => 'Student Sarah Wilson needs help with project', 'time' => '4 hours ago', 'type' => 'help'],
-                ['id' => 3, 'message' => 'Course "Web Development" has 3 new enrollments', 'time' => '1 day ago', 'type' => 'enrollment']
+                 ['id' => 1, 'message' => 'New assignment submitted by John Doe', 'time' => '2 hours ago', 'type' => 'assignment'],
             ];
         } elseif ($role === 'student') {
             $enrollmentModel = new \App\Models\EnrollmentModel();
@@ -186,13 +180,9 @@ class Auth extends BaseController
             // Dummy data for other sections (can be updated later)
             $data['upcomingDeadlines'] = [
                 ['course' => 'Web Development', 'assignment' => 'Final Project', 'due_date' => '2025-01-25', 'status' => 'pending'],
-                ['course' => 'Database Management', 'assignment' => 'SQL Quiz', 'due_date' => '2025-01-28', 'status' => 'pending'],
-                ['course' => 'Software Engineering', 'assignment' => 'Design Document', 'due_date' => '2025-02-01', 'status' => 'pending']
             ];
             $data['recentGrades'] = [
-                ['course' => 'Web Development', 'assignment' => 'HTML/CSS Project', 'grade' => 95, 'date' => '2025-01-20'],
-                ['course' => 'Database Management', 'assignment' => 'ERD Design', 'grade' => 88, 'date' => '2025-01-18'],
-                ['course' => 'Software Engineering', 'assignment' => 'Requirements Analysis', 'grade' => 92, 'date' => '2025-01-15']
+                ['course' => 'Web Development', 'assignment' => 'HTML/CSS Project', 'grade' => 95, 'date' => '2025-01-20'], 
             ];
         }
 

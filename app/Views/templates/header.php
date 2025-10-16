@@ -21,7 +21,7 @@ $menus = [
     ],
     'student' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
-        ['route' => 'student/course', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
+        ['route' => 'dashboard#course', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
         ['route' => 'student/assignment', 'icon' => 'bi-pencil-square', 'label' => 'Assignments'],
         ['route' => 'student/settings', 'icon' => 'bi-gear', 'label' => 'Settings'],
     ]
