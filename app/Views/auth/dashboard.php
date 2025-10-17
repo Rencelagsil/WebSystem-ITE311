@@ -66,41 +66,6 @@
     </div>
 </div>
 
-<!-- Management Actions -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-white">Quick Actions</h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-person-plus me-2"></i>Manage Users
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#course" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-book me-2"></i>Manage Courses
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#recentActivitySection" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-graph-up me-2"></i>Recent Activity
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-gear me-2"></i>Settings
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Course Table -->
 <div class="row mt-4" id="course">
     <div class="col-12">
@@ -237,41 +202,6 @@
                     </div>
                     <div class="col-auto">
                         <i class="bi bi-bell fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Quick Actions -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-white">Quick Actions</h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-plus-circle me-2"></i>Create Course
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-file-earmark-plus me-2"></i>Add Assignment
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-chat-dots me-2"></i>View Messages
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#notifications" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-bell me-2"></i>Notifications
-                        </a>
                     </div>
                 </div>
             </div>
@@ -426,44 +356,33 @@
     </div>
 </div>
 
-<!-- Quick Actions -->
-<div class="row mb-4">
+<!-- Announcements - First thing students see after login -->
+<div class="row mb-4" id="announcements">
     <div class="col-12">
         <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-white">Quick Actions</h6>
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-white">
+                    <i class="bi bi-megaphone me-2"></i>Announcements
+                </h6>
+                <a href="#" class="btn btn-sm btn-outline-light">View All</a>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <a href="#courses" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-search me-2"></i>Browse Courses
-                        </a>
+                <?php if (isset($announcements)): ?>
+                    <?= view('announcements', ['announcements' => $announcements]) ?>
+                <?php else: ?>
+                    <div class="text-center text-muted">
+                        <i class="bi bi-megaphone fa-2x mb-3 text-muted"></i>
+                        <p>No announcements available at the moment.</p>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-file-earmark-arrow-up me-2"></i>Submit Assignment
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#deadlines" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-clock me-2"></i>Upcoming Deadlines
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <a href="#recent-grades" class="btn btn-outline-maroon btn-block">
-                            <i class="bi bi-calendar me-2"></i>View Grades
-                        </a>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
+<div class="row" id="courses">
     <!-- Enrolled Courses -->
-    <div class="col-lg-6" id="enrolled-courses">
+    <div class="col-lg-6">
         <div class="card shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-white">Enrolled Courses</h6>
@@ -573,7 +492,6 @@
 </div>
 
 <div class="row">
-</div>
 
 </div>
 
@@ -682,9 +600,8 @@ $(document).ready(function() {
                     var courseTitle = courseCard.find('h6').text();
                     var courseDesc = courseCard.find('p').text();
 
-                    // Remove from available
                     courseCard.remove();
-
+                    
                     // Add to enrolled
                     var enrolledHtml = '<div class="d-flex align-items-center mb-3 p-3 border rounded">' +
                         '<div class="flex-shrink-0"><i class="bi bi-book text-maroon fa-2x"></i></div>' +
@@ -705,7 +622,6 @@ $(document).ready(function() {
                     $('#available-count').text(availableCount);
 
                 } else {
-                    // Re-enable button
                     button.prop('disabled', false).text(originalText);
                 }
             },
@@ -723,7 +639,6 @@ $(document).ready(function() {
             '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
             '</div>';
         $('body').append(alertHtml);
-        // Auto dismiss after 5 seconds
         setTimeout(function() {
             $('.alert').alert('close');
         }, 5000);
@@ -735,7 +650,7 @@ $(document).ready(function() {
 </div>
 
 <style>
-/* Maroon and White Color Scheme */
+
 .border-left-primary,
 .border-left-success,
 .border-left-info,
@@ -762,34 +677,16 @@ $(document).ready(function() {
     border-bottom: 1px solid #800000;
 }
 
-/* Solid Buttons */
-.btn-primary,
-.btn-success,
-.btn-info,
-.btn-warning {
+.btn-primary {
     background-color: #800000;
     border-color: #800000;
     color: #fff !important;
 }
-.btn-primary:hover,
-.btn-success:hover,
-.btn-info:hover,
-.btn-warning:hover {
+.btn-primary:hover {
     background-color: #660000;
     border-color: #660000;
 }
 
-/* Outline Buttons */
-.btn-outline-maroon {
-    color: #800000 !important;
-    border-color: #800000;
-}
-.btn-outline-maroon:hover {
-    background-color: #800000;
-    color: #fff !important;
-}
-
-/* Badges */
 .badge.bg-danger,
 .badge.bg-info,
 .badge.bg-warning,
@@ -798,7 +695,6 @@ $(document).ready(function() {
     background-color: #800000 !important;
 }
 
-/* Progress Bar */
 .progress-bar {
     background-color: #800000;
 }

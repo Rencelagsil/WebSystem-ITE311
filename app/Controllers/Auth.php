@@ -5,7 +5,6 @@ namespace App\Controllers;
 class Auth extends BaseController
 {
     
-// Handles registration 
     public function register()
     {
         $session = session();
@@ -56,11 +55,9 @@ class Auth extends BaseController
                 ->with('register_success', 'Account created successfully. Please log in.');
         }
 
-        // Display form (GET)
         return view('auth/register');
     }
 
-// Login
     public function login()
     {
         $session = session();
@@ -148,7 +145,7 @@ class Auth extends BaseController
                     'id' => $course['id'],
                     'title' => $course['title'],
                     'students' => $studentCount,
-                    'status' => 'active' // Assuming all courses are active for now
+                    'status' => 'active' 
                 ];
             }
 
@@ -159,6 +156,7 @@ class Auth extends BaseController
         } elseif ($role === 'student') {
             $enrollmentModel = new \App\Models\EnrollmentModel();
             $courseModel = new \App\Models\CourseModel();
+            $announcementModel = new \App\Models\AnnouncementModel();
             $user_id = $session->get('user_id');
 
             // Get enrolled courses
@@ -177,12 +175,15 @@ class Auth extends BaseController
             });
             $data['availableCourses'] = array_values($availableCourses);
 
+            // Get announcements for dashboard
+            $data['announcements'] = $announcementModel->orderBy('created_at', 'DESC')->findAll();
+
             // Dummy data for other sections (can be updated later)
             $data['upcomingDeadlines'] = [
                 ['course' => 'Web Development', 'assignment' => 'Final Project', 'due_date' => '2025-01-25', 'status' => 'pending'],
             ];
             $data['recentGrades'] = [
-                ['course' => 'Web Development', 'assignment' => 'HTML/CSS Project', 'grade' => 95, 'date' => '2025-01-20'], 
+                ['course' => 'Web Development', 'assignment' => 'HTML/CSS Project', 'grade' => 95, 'date' => '2025-01-20'],
             ];
         }
 
